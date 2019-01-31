@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: cloudplatform-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://192.168.1.248:30080/cloud_server/cloudplatform-config-repo.git
+          search-paths: /{application}/**
+          username: shudongping@whzt.com
+          password: 12345678
+      label: dev
+  rabbitmq:
+    host: 192.168.1.241
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+   instance:
+#     ip-address: 192.168.1.241
+     prefer-ip-address: true #使用IP注册
+     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+     ##续约更新时间间隔设置5秒，m默认30s
+     lease-renewal-interval-in-seconds: 5
+     ##续约到期时间10秒，默认是90秒
+     lease-expiration-duration-in-seconds: 10
+   client:
+       service-url:
+         defaultZone: http://192.168.1.241:9090/eureka/
+
+server:
+  port: 8888
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
