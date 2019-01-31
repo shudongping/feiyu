@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: feiyu-upms-biz
+  cloud:
+    config:
+      fail-fast: true
+      name: ${spring.application.name},test
+      profile: ${spring.profiles.active}
+      label: dev
+      discovery:
+        enabled: true
+        serviceId: feiyu-config
+  profiles:
+    active: dev
+  sequence:
+    datacenter-id: 0002
+    machine-id: 1
+  aop:
+    auto: true
+    proxy-target-class: true
+server:
+  port: 19095
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true #使用IP注册
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    ##续约更新时间间隔设置5秒，m默认30s
+    lease-renewal-interval-in-seconds: 5
+    ##续约到期时间10秒，默认是90秒
+    lease-expiration-duration-in-seconds: 10
+  client:
+      service-url:
+        defaultZone: http://192.168.1.241:9090/eureka/
+
+
+
