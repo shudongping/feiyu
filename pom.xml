@@ -6,7 +6,7 @@
 
     <groupId>com.feiyu</groupId>
     <artifactId>feiyu</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <modules>
         <module>feiyu-eureka</module>
         <module>feiyu-config</module>

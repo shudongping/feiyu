@@ -1,4 +1,4 @@
-package com.feiyu.common.core.config;
+package com.feiyu.common.security.config;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

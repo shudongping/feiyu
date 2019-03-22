@@ -4,8 +4,6 @@ package com.feiyu.common.core.exception;
 import com.feiyu.common.core.domain.CodeMessage;
 import com.feiyu.common.core.domain.Result;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -26,16 +24,4 @@ public class GlobalExceptionHandler {
         return Result.error(serviceException.getCm());
     }
 
-
-    @ExceptionHandler(value = AccessDeniedException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public Result<Object> AccessDeniedException(Exception e) {
-        return Result.error(CodeMessage.USER_UNAUTHORIZED);
-    }
-
-    @ExceptionHandler(value = AuthenticationException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public Result<Object> handleAuthenticationException(Exception e) {
-        return Result.error(CodeMessage.USER_UNAUTHORIZED);
-    }
 }

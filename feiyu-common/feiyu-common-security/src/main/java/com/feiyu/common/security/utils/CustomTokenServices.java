@@ -1,4 +1,4 @@
-package com.feiyu.common.core.security.utils;
+package com.feiyu.common.security.utils;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.security.core.GrantedAuthority;

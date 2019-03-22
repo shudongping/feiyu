@@ -1,4 +1,4 @@
-package com.feiyu.common.core.security.config;
+package com.feiyu.common.security.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

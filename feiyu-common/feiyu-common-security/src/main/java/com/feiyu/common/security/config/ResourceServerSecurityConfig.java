@@ -1,13 +1,11 @@
-package com.feiyu.common.core.security.config;
+package com.feiyu.common.security.config;
 
 
-import com.feiyu.common.core.security.handler.CustomAccessDeniedHandler;
-import com.feiyu.common.core.security.handler.ResourceAuthExceptionEntryPoint;
-import com.feiyu.common.core.security.utils.CustomTokenServices;
+import com.feiyu.common.security.handler.CustomAccessDeniedHandler;
+import com.feiyu.common.security.handler.ResourceAuthExceptionEntryPoint;
+import com.feiyu.common.security.utils.CustomTokenServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -22,7 +20,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @Configuration
 @EnableResourceServer
 @Slf4j
-@ConditionalOnProperty(name = "security.oauth2.resource.user-info-uri")
 public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -33,8 +30,8 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
     @Autowired
     private UrlsIgnorePropertiesConfig urlsIgnorePropertiesConfig;
 
-    @Value("${security.oauth2.resource.user-info-uri}")
-    private String userInfoUri;
+//    @Value("${security.oauth2.resource.user-info-uri}")
+    private String userInfoUri = "1";
 
     private static final String[] AUTH_WHITELIST = {
             "/**/v2/api-docs",
@@ -44,7 +41,7 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
             "/configuration/security",
             "/swagger-ui.html",
             "swagger-resources/configuration/ui",
-            "/doc.html",
+            "/doc.html","/**"
 
     };
 

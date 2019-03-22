@@ -24,7 +24,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir") + "/feiyu-upms";
-        gc.setOutputDir(projectPath +"/feiyu-upms-api" + "/src/main/java");
+        gc.setOutputDir(projectPath +"/feiyu-upms-biz" + "/src/main/java");
         gc.setAuthor("shudongping");
         gc.setOpen(false);
         mpg.setGlobalConfig(gc);
@@ -41,7 +41,7 @@ public class CodeGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName("");
-        pc.setParent("com.feiyu.upms");
+        pc.setParent("com.feiyu.upms.biz");
 
 
         mpg.setPackageInfo(pc);
@@ -65,7 +65,7 @@ public class CodeGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+                return projectPath +"/feiyu-upms-biz"+ "/src/main/resources/mapper/" + pc.getModuleName()
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });

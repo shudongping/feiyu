@@ -1,4 +1,4 @@
-package com.feiyu.common.core.security.utils;
+package com.feiyu.common.security.utils;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

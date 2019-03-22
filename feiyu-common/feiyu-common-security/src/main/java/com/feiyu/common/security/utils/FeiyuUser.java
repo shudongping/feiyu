@@ -1,4 +1,4 @@
-package com.feiyu.common.core.security.utils;
+package com.feiyu.common.security.utils;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
