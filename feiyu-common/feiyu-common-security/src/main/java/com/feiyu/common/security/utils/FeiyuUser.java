@@ -27,4 +27,9 @@ public class FeiyuUser extends User {
         this.orgId = orgId;
         this.orgCode = orgCode;
     }
+
+    public static void main(String[] args) {
+
+    }
+
 }

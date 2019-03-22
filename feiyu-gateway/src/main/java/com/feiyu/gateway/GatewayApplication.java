@@ -1,6 +1,6 @@
 package com.feiyu.gateway;
 
-import com.feiyu.common.core.security.config.ResourceServerAutoConfiguration;
+import com.feiyu.common.security.config.ResourceServerAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
