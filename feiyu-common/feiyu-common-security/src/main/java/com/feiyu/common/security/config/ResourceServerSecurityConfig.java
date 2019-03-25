@@ -3,7 +3,6 @@ package com.feiyu.common.security.config;
 
 import com.feiyu.common.security.handler.CustomAccessDeniedHandler;
 import com.feiyu.common.security.handler.ResourceAuthExceptionEntryPoint;
-import com.feiyu.common.security.utils.CustomTokenServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +29,7 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
     @Autowired
     private UrlsIgnorePropertiesConfig urlsIgnorePropertiesConfig;
 
-//    @Value("${security.oauth2.resource.user-info-uri}")
+    //    @Value("${security.oauth2.resource.user-info-uri}")
     private String userInfoUri = "1";
 
     private static final String[] AUTH_WHITELIST = {
@@ -41,7 +40,7 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
             "/configuration/security",
             "/swagger-ui.html",
             "swagger-resources/configuration/ui",
-            "/doc.html","/**"
+            "/doc.html", "/**"
 
     };
 
@@ -60,7 +59,6 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint).accessDeniedHandler(customAccessDeniedHandler);
-        resources.tokenServices(new CustomTokenServices(userInfoUri, ""));
     }
 
 

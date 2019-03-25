@@ -13,19 +13,19 @@ public class FeiyuUser extends User {
     @Getter
     private String id;
     @Getter
-    private String orgId;
+    private String deptId;
     @Getter
-    private String orgCode;
+    private String deptCode;
 
     public FeiyuUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
 
-    public FeiyuUser(String id, String orgId, String orgCode, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public FeiyuUser(String id, String deptId, String deptCode, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.id = id;
-        this.orgId = orgId;
-        this.orgCode = orgCode;
+        this.deptId = deptId;
+        this.deptCode = deptCode;
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,6 @@
 package com.feiyu.upms.biz;
 
-import com.feiyu.common.core.security.config.ResourceServerAutoConfiguration;
-import com.feiyu.common.core.security.config.ResourceServerSecurityConfig;
+import com.feiyu.common.security.config.ResourceServerAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

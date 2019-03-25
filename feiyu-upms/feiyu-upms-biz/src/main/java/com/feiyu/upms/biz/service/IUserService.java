@@ -1,5 +1,6 @@
 package com.feiyu.upms.biz.service;
 
+import com.feiyu.upms.api.domain.dto.UserInfo;
 import com.feiyu.upms.api.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
 
+    UserInfo getUserInfoForRemote(String username) throws Exception;
 }
