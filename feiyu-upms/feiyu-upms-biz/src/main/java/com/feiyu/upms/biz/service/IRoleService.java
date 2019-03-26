@@ -3,6 +3,8 @@ package com.feiyu.upms.biz.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.feiyu.upms.api.entity.Role;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.feiyu.upms.api.entity.Role;
  */
 public interface IRoleService extends IService<Role> {
 
+    List<Role> getRolesByUserId(String userId);
 }

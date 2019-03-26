@@ -1,12 +1,21 @@
 package com.feiyu.upms.biz.service.impl;
 
+import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.feiyu.common.core.domain.CodeMessage;
+import com.feiyu.common.core.exception.ServiceException;
 import com.feiyu.upms.api.domain.dto.UserInfo;
+import com.feiyu.upms.api.entity.Role;
 import com.feiyu.upms.api.entity.User;
 import com.feiyu.upms.biz.mapper.UserMapper;
+import com.feiyu.upms.biz.service.IRoleService;
 import com.feiyu.upms.biz.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -19,10 +28,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    @Autowired
+    private IRoleService roleService;
+
     @Override
     public UserInfo getUserInfoForRemote(String username) throws Exception {
 
-        User user = getOne(Wrappers.<User>query().lambda().eq(User::getUserName,username));
+        UserInfo userInfo = new UserInfo();
+
+        User user = getOne(Wrappers.<User>query().lambda().eq(User::getUserName, username));
+
+        if (user == null) {
+            throw new ServiceException(new CodeMessage(500, "用户不存在！"));
+        }
+
+        userInfo.setUser(user);
+
+        //查询角色
+        List<Role> roleList = roleService.getRolesByUserId(user.getId());
+        List<String> roleIds = roleList.stream().map(Role::getId).collect(Collectors.toList());
+        userInfo.setRoles(ArrayUtil.toArray(roleIds, String.class));
 
         return null;
     }
