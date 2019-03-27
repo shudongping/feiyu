@@ -31,9 +31,16 @@ public class UserController {
     }
 
 
+    /**
+     * 根据用户名获取用户信息  供用户认证获取用户信息使用
+     *
+     * @param username
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/remote/userInfo/{username}")
-    public Result<UserInfo> getUserInfoForRemote(@PathVariable("username") String username) {
-
+    public Result<UserInfo> getUserInfoForRemote(@PathVariable("username") String username) throws Exception {
+        return Result.success(userService.getUserInfoForRemote(username));
     }
 
 

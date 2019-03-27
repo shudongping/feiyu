@@ -1,10 +1,11 @@
-package com.feiyu.upms.biz.config;
+package com.feiyu.common.core.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -21,6 +22,7 @@ import java.sql.SQLException;
  */
 @Configuration
 @Slf4j
+@ConditionalOnProperty(name = "spring.datasource")
 public class DruidConfig {
 
 

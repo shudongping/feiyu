@@ -6,11 +6,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.feiyu.common.core.domain.CodeMessage;
 import com.feiyu.common.core.exception.ServiceException;
 import com.feiyu.upms.api.domain.dto.UserInfo;
+import com.feiyu.upms.api.entity.Menu;
 import com.feiyu.upms.api.entity.Role;
 import com.feiyu.upms.api.entity.User;
 import com.feiyu.upms.biz.mapper.UserMapper;
+import com.feiyu.upms.biz.service.IMenuService;
 import com.feiyu.upms.biz.service.IRoleService;
 import com.feiyu.upms.biz.service.IUserService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private IRoleService roleService;
 
+    @Autowired
+    private IMenuService menuService;
+
     @Override
     public UserInfo getUserInfoForRemote(String username) throws Exception {
 
@@ -48,8 +54,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         List<Role> roleList = roleService.getRolesByUserId(user.getId());
         List<String> roleIds = roleList.stream().map(Role::getId).collect(Collectors.toList());
         userInfo.setRoles(ArrayUtil.toArray(roleIds, String.class));
-
-        return null;
+        List<String> permissions = Lists.newArrayList();
+        roleIds.stream().forEach(roleId -> {
+            List<Menu> menus = menuService.getMenuByRoleId(roleId);
+            menus.stream().forEach(menu -> permissions.add(menu.getPermission()));
+        });
+        userInfo.setPermissions(ArrayUtil.toArray(permissions, String.class));
+        return userInfo;
     }
 
 }

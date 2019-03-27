@@ -29,9 +29,6 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
     @Autowired
     private UrlsIgnorePropertiesConfig urlsIgnorePropertiesConfig;
 
-    //    @Value("${security.oauth2.resource.user-info-uri}")
-    private String userInfoUri = "1";
-
     private static final String[] AUTH_WHITELIST = {
             "/**/v2/api-docs",
             "/swagger-resources",
@@ -59,6 +56,7 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint).accessDeniedHandler(customAccessDeniedHandler);
+
     }
 
 

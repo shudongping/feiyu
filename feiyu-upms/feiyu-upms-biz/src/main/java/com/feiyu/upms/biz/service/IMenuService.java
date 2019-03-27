@@ -3,6 +3,8 @@ package com.feiyu.upms.biz.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.feiyu.upms.api.entity.Menu;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.feiyu.upms.api.entity.Menu;
  */
 public interface IMenuService extends IService<Menu> {
 
+    List<Menu> getMenuByRoleId(String roleId);
 }
