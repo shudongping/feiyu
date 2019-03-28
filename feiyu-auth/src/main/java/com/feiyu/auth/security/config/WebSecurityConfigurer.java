@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
@@ -22,6 +23,16 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @SneakyThrows
     public AuthenticationManager authenticationManagerBean() {
         return super.authenticationManagerBean();
+    }
+
+    @Override
+    @SneakyThrows
+    protected void configure(HttpSecurity http) {
+        http.authorizeRequests().antMatchers(
+                "/token/**",
+                "/actuator/**").permitAll()
+                .anyRequest().authenticated()
+                .and().csrf().disable();
     }
 
 

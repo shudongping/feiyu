@@ -8,10 +8,12 @@ package com.feiyu.upms.api.feign;
 import com.feiyu.common.core.domain.Result;
 import com.feiyu.upms.api.domain.dto.UserInfo;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(value = "feiyu-upms")
+@ComponentScan("com.feiyu.upms.api")
 public interface RemoteUserService {
 
     @GetMapping("/user/remote/userInfo/{username}")

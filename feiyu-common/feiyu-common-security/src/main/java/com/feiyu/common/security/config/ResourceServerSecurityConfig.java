@@ -5,12 +5,19 @@ import com.feiyu.common.security.handler.CustomAccessDeniedHandler;
 import com.feiyu.common.security.handler.ResourceAuthExceptionEntryPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
+import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
  * @author shudongping
@@ -28,6 +35,12 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
 
     @Autowired
     private UrlsIgnorePropertiesConfig urlsIgnorePropertiesConfig;
+
+    @Autowired
+    protected RemoteTokenServices remoteTokenServices;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     private static final String[] AUTH_WHITELIST = {
             "/**/v2/api-docs",
@@ -55,8 +68,14 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint).accessDeniedHandler(customAccessDeniedHandler);
+        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+        DefaultUserAuthenticationConverter userTokenConverter = new DefaultUserAuthenticationConverter();
+        userTokenConverter.setUserDetailsService(userDetailsService);
+        accessTokenConverter.setUserTokenConverter(userTokenConverter);
 
+        remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
+        resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint)
+                .tokenServices(remoteTokenServices);
     }
 
 

@@ -1,17 +1,16 @@
 spring:
   application:
     name: cloudplatform-config
+  # 配置中心
   cloud:
     config:
       server:
-        git:
-          uri: http://192.168.1.248:30080/cloud_server/cloudplatform-config-repo.git
-          search-paths: /{application}/**
-          username: shudongping@whzt.com
-          password: 12345678
-      label: dev
+        native:
+          search-locations: classpath:/config/
+  profiles:
+    active: dev
   rabbitmq:
-    host: 192.168.1.241
+    host: 119.27.191.252
     port: 5672
     username: guest
     password: guest
